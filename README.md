@@ -57,3 +57,12 @@ You can learn more in the
 [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## Some usefull links
+https://egghead.io/lessons/react-create-custom-variants-in-chakra-ui
+https://github.com/nikolovlazar/egghead-getting-started-with-chakra-ui
+https://www.digitalocean.com/community/tutorials/react-chakra-ui#installation
+
+### Thing to look at in official docs
+https://chakra-ui.com/docs/components/layout/flex#flex-and-spacer-vs-grid-vs-stack
