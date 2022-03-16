@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, FormLabel, Heading, HStack, Input, NumberInput, NumberInputField, Select, Spacer, VStack } from "@chakra-ui/react"
+import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Heading, HStack, Input, NumberInput, NumberInputField, Select, Spacer, VStack } from "@chakra-ui/react"
 import { useState } from "react";
 
 export const DemoFilter = (props: any) => {
@@ -10,8 +10,6 @@ export const DemoFilter = (props: any) => {
     const [toInvalid, setToInvalid] = useState<boolean>();
 
     const handleSelect = (value: string) => {
-        console.log(value)
-
         setSelected(value);
     }
 
@@ -21,6 +19,8 @@ export const DemoFilter = (props: any) => {
     }
 
     const handleFromBlur = (value: string) => {
+        setFromInvalid(false);
+        setToInvalid(false);
         let newValue: string = value;
         if(to && Number.parseInt(value) > Number.parseInt(to)) {
             newValue = to;
@@ -35,6 +35,8 @@ export const DemoFilter = (props: any) => {
     }
 
     const handleToBlur = (value: string) => {
+        setFromInvalid(false);
+        setToInvalid(false);
         let newValue = value;
         if(from && Number.parseInt(value) < Number.parseInt(from)) {
             newValue = from;
@@ -67,13 +69,20 @@ export const DemoFilter = (props: any) => {
                         <NumberInput placeholder="0" value={from} onChange={(valueString) => handleFrom(valueString)} onBlur={(e) => handleFromBlur(e.target.value)} >
                             <NumberInputField />
                         </NumberInput>
+                        {fromInvalid &&
+                            <FormErrorMessage mb='-6'>From is bigger than to</FormErrorMessage>  
+                        }
                     </FormControl>
 
                     <FormControl isInvalid={toInvalid}>
                         <FormLabel>To</FormLabel>
                         <NumberInput placeholder="10" value={to} onChange={(valueString) => handleTo(valueString)} onBlur={(e) => handleToBlur(e.target.value)} >
+                        {/* <NumberInput placeholder="10" value={to} onChange={(valueString) => handleTo(valueString)} onBlur={(e) => handleBlur()} > */}
                             <NumberInputField />
                         </NumberInput>
+                        {toInvalid &&
+                            <FormErrorMessage mb='-6'>To is smaller than from</FormErrorMessage>  
+                        }
                     </FormControl>
 
                 </HStack>
