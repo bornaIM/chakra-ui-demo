@@ -66,7 +66,7 @@ export const DemoFilter = (props: any) => {
 
                     <FormControl isInvalid={fromInvalid}>
                         <FormLabel>From</FormLabel>
-                        <NumberInput placeholder="0" value={from} onChange={(valueString) => handleFrom(valueString)} onBlur={(e) => handleFromBlur(e.target.value)} >
+                        <NumberInput placeholder="0" min={0} value={from} onChange={(valueString) => handleFrom(valueString)} onBlur={(e) => handleFromBlur(e.target.value)} >
                             <NumberInputField />
                         </NumberInput>
                         {fromInvalid &&
@@ -76,7 +76,7 @@ export const DemoFilter = (props: any) => {
 
                     <FormControl isInvalid={toInvalid}>
                         <FormLabel>To</FormLabel>
-                        <NumberInput placeholder="10" value={to} onChange={(valueString) => handleTo(valueString)} onBlur={(e) => handleToBlur(e.target.value)} >
+                        <NumberInput placeholder="10" min={0} value={to} onChange={(valueString) => handleTo(valueString)} onBlur={(e) => handleToBlur(e.target.value)} >
                         {/* <NumberInput placeholder="10" value={to} onChange={(valueString) => handleTo(valueString)} onBlur={(e) => handleBlur()} > */}
                             <NumberInputField />
                         </NumberInput>
