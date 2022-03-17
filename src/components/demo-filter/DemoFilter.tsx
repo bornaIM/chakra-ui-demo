@@ -1,13 +1,16 @@
-import { Box, Flex, FormLabel, Heading, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, VStack } from "@chakra-ui/react"
+import { Box, Flex, FormLabel, Heading, HStack, Input, VStack } from "@chakra-ui/react"
 import { useState } from "react"
 
 interface DemoFilterProps {
-    from: number | null,
-    to: number | null,
+    value: {
+        from: number | null,
+        to: number | null,
+    }
+    
     onChange: (from: number | null, to: number | null) => void
 }
 
-export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
+export const DemoFilter = ({ value, onChange }: DemoFilterProps) => {
 
     const [fromKey, setFromKey] = useState(0);
     const [toKey, setToKey] = useState(0);
@@ -23,60 +26,62 @@ export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
         return value === null ? '' : value;
     }
 
-    const handleFrom = (value: string) => {
-        console.log('handleFrom', value);
-        const intValue = parseInt(value);
-        if(String(intValue) !== value) {
+    const handleFrom = (newValue: string) => {
+        console.log('handleFrom', newValue);
+        const intValue = parseInt(newValue);
+        if(String(intValue) !== newValue) {
             setFromKey(fromKey + 1);
             setAutofocus('from');
         }
-        onChange(parseInt(value), to);
+        onChange(parseInt(newValue), value.to);
     }
 
-    const handleFromBlur = (value: string) => {
+    const handleFromBlur = (blurValue: string) => {
         debugger;
-        let newValue: string = value;
+        let newValue: string = blurValue;
 
-        const valuePom = parseInt(value);
-        const toPom = parseInt(to);
+        const valuePom = parseInt(blurValue);
+        const toPom = parseInt(value.to);
 
         if (valuePom && toPom && valuePom > toPom) {
-            newValue = String(to);
+            newValue = String(value.to);
         }
         console.log('handleFromBlur', parseInt(newValue))
+        setAutofocus(null);
         handleFrom(newValue);
     }
 
-    const handleTo = (value: string) => {
-        console.log('handleFrom', value);
-        const intValue = parseInt(value);
-        if(String(intValue) !== value) {
+    const handleTo = (newValue: string) => {
+        console.log('handleFrom', newValue);
+        const intValue = parseInt(newValue);
+        if(String(intValue) !== newValue) {
             setToKey(toKey + 1);
             setAutofocus('to');
         }
-        onChange(from, parseInt(value));
+        onChange(value.from, parseInt(newValue));
     }
 
-    const handleToBlur = (value: string) => {
+    const handleToBlur = (blurValue: string) => {
         debugger;
-        let newValue: string = value;
+        let newValue: string = blurValue;
 
-        const valuePom = parseInt(value);
-        const fromPom = parseInt(from);
+        const valuePom = parseInt(blurValue);
+        const fromPom = parseInt(value.from);
 
         if (valuePom && fromPom && valuePom < fromPom) {
-            newValue = String(from);
+            newValue = String(value.from);
         }
 
         console.log('handleTo', parseInt(newValue));
+        setAutofocus(null);
         handleTo(newValue);
     }
 
-    const checkInput = (value: any) => {
-        console.log(value.keyCode);
+    const checkInput = (newValue: any) => {
+        console.log(newValue.keyCode);
         const notAllowed = [69, 187, 189];
-        if (notAllowed.indexOf(value.keyCode) >= 0) {
-            value.preventDefault();
+        if (notAllowed.indexOf(newValue.keyCode) >= 0) {
+            newValue.preventDefault();
         }
     }
 
@@ -92,12 +97,12 @@ export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
 
                     <Box>
                         <FormLabel>From</FormLabel>
-                        <Input key={fromKey} autoFocus={autofocus === 'from'} placeholder="0" type='number' value={mapValue(from)} onKeyDown={e => checkInput(e)} onChange={(e) => handleFrom(e.target.value)} onBlur={(e) => handleFromBlur(e.target.value)}></Input>
+                        <Input key={`from_${fromKey}`} autoFocus={autofocus === 'from'} placeholder="0" type='number' value={mapValue(value.from)} onKeyDown={e => checkInput(e)} onChange={(e) => handleFrom(e.target.value)} onBlur={(e) => handleFromBlur(e.target.value)}></Input>
                     </Box>
 
                     <Box>
                         <FormLabel>To</FormLabel>
-                        <Input key={toKey} autoFocus={autofocus === 'to'} placeholder="10" type='number' value={mapValue(to)} onKeyDown={e => checkInput(e)} onChange={(e) => handleTo(e.target.value)} onBlur={(e) => handleToBlur(e.target.value)}></Input>
+                        <Input key={`to_${toKey}`} autoFocus={autofocus === 'to'} placeholder="10" type='number' value={mapValue(value.to)} onKeyDown={e => checkInput(e)} onChange={(e) => handleTo(e.target.value)} onBlur={(e) => handleToBlur(e.target.value)}></Input>
                     </Box>
 
                 </HStack>

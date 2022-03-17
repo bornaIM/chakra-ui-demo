@@ -13,7 +13,7 @@ export const DemoFilterPage = (props: any) => {
 
     return (
         <>
-            <DemoFilter from={from} to={to} onChange={onFilterChange}></DemoFilter>
+            <DemoFilter value={{to, from}} onChange={onFilterChange}></DemoFilter>
             <pre>{`${from}_${to}`}</pre>
         </>
     )
