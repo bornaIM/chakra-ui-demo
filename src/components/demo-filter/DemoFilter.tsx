@@ -1,66 +1,66 @@
-import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Heading, HStack, Input, Select, Spacer, VStack } from "@chakra-ui/react"
-import { useState } from "react";
+import { Box, Flex, FormLabel, Heading, HStack, Input, VStack } from "@chakra-ui/react"
 
-export const DemoFilter = (props: any) => {
+interface DemoFilterProps {
+    from: number | null,
+    to: number | null,
+    onChange: (from: number | null, to: number | null) => void
+}
 
-    const [select, setSelected] = useState<string>("");
-    const [from, setFrom] = useState<string | undefined>("");
-    const [fromInvalid, setFromInvalid] = useState<boolean>(false);
-    const [to, setTo] = useState<string | undefined>("");
-    const [toInvalid, setToInvalid] = useState<boolean>(false);
+export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
 
-    const parseInt = (value: string) => {
-        const isNan = isNaN(Number.parseInt(value));
-        return isNan ? value : Number.parseInt(value);
-
+    const parseInt = (value: string | undefined | number | null): number | null => {
+        const isNan = isNaN(Number.parseInt(String(value)));
+        return isNan ? null : Number.parseInt(String(value));
     }
 
-    const handleSelect = (value: string) => {
-        setSelected(value);
+    const mapValue = (value: number | null) => {
+        debugger
+        return  value === null ?  '' : value;
     }
 
     const handleFrom = (value: string) => {
-        setFromInvalid(false);
-        console.log('handleFrom', value)
-        setFrom(value);
+        console.log('handleFrom', value);
+        onChange(parseInt(value), to);
     }
 
     const handleFromBlur = (value: string) => {
-        setFromInvalid(false);
-        setToInvalid(false);
+        debugger;
         let newValue: string = value;
 
-        if (to && parseInt(value) > parseInt(to)) {
-            newValue = to;
-            setFromInvalid(true);
+        const valuePom = parseInt(value);
+        const toPom = parseInt(to);
+
+        if (valuePom && toPom && valuePom > toPom ) {
+            newValue = String(to);
         }
-        console.log('handleFromBlur', parseInt(newValue).toString())
-        setFrom(parseInt(newValue).toString());
+        console.log('handleFromBlur', parseInt(newValue))
+        handleFrom(newValue);
     }
 
     const handleTo = (value: string) => {
-        setToInvalid(false);
-        console.log('handleTo', value)
-        setTo(value);
+        console.log('handleFrom', value);
+        onChange(from, parseInt(value));
     }
 
     const handleToBlur = (value: string) => {
-        setFromInvalid(false);
-        setToInvalid(false);
-        let newValue = value;
-        
-        if (from && parseInt(value) < parseInt(from)) {
-            newValue = from;
-            setToInvalid(true);
+        debugger;
+        let newValue: string = value;
+
+        const valuePom = parseInt(value);
+        const fromPom = parseInt(from);
+
+        if (valuePom && fromPom && valuePom < fromPom ) {
+            newValue = String(from);
         }
-        console.log('handleTo', parseInt(newValue).toString())
-        setTo(parseInt(newValue).toString());
+
+        console.log('handleTo', parseInt(newValue));
+        handleTo(newValue);
     }
 
     const checkInput = (value: any) => {
         console.log(value.keyCode);
         const notAllowed = [69, 187, 189];
-        if(notAllowed.indexOf(value.keyCode) >= 0) {
+        if (notAllowed.indexOf(value.keyCode) >= 0) {
             value.preventDefault();
         }
     }
@@ -75,36 +75,17 @@ export const DemoFilter = (props: any) => {
             <Flex w="full">
                 <HStack spacing='24px'>
 
-                    <FormControl>
-                        <FormLabel>Some random option</FormLabel>
-                        <Select placeholder='Select option' onChange={(e) => handleSelect(e.target.value)} value={select}>
-                            <option value='option1'>Option 1</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
-                    </FormControl>
-
-                    <FormControl isInvalid={fromInvalid}>
+                    <Box>
                         <FormLabel>From</FormLabel>
-                        <Input placeholder="0" type='number' value={from} onKeyDown={e => checkInput(e)} onChange={(e) => handleFrom(e.target.value.replace(/[^0-9]/g, ""))} onBlur={(e) => handleFromBlur(e.target.value)} onInvalid={e => console.log('on invalid', e)} ></Input>
-                        {fromInvalid &&
-                            <FormErrorMessage mb='-6'>From is bigger than to</FormErrorMessage>
-                        }
-                    </FormControl>
+                        <Input placeholder="0" type='number' value={mapValue(from)} onKeyDown={e => checkInput(e)} onChange={(e) => handleFrom(e.target.value)} onBlur={(e) => handleFromBlur(e.target.value)}></Input>
+                    </Box>
 
-                    <FormControl isInvalid={toInvalid}>
+                    <Box>
                         <FormLabel>To</FormLabel>
-                        <Input placeholder="10" type='number' value={to} onChange={(e) => handleTo(e.target.value)} onBlur={(e) => handleToBlur(e.target.value)} ></Input>
-                        {toInvalid &&
-                            <FormErrorMessage mb='-6'>To is smaller than from</FormErrorMessage>
-                        }
-                    </FormControl>
+                        <Input placeholder="10" type='number' value={mapValue(to)} onKeyDown={e => checkInput(e)} onChange={(e) => handleTo(e.target.value)} onBlur={(e) => handleToBlur(e.target.value)}></Input>
+                    </Box>
 
                 </HStack>
-
-                <Spacer />
-
-                <Button mt='auto'>Apply Filter</Button>
             </Flex>
         </VStack>
     )
