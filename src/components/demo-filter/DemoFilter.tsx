@@ -1,4 +1,5 @@
-import { Box, Flex, FormLabel, Heading, HStack, Input, VStack } from "@chakra-ui/react"
+import { Box, Flex, FormLabel, Heading, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, VStack } from "@chakra-ui/react"
+import { useState } from "react"
 
 interface DemoFilterProps {
     from: number | null,
@@ -8,6 +9,10 @@ interface DemoFilterProps {
 
 export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
 
+    const [fromKey, setFromKey] = useState(0);
+    const [toKey, setToKey] = useState(0);
+    const [autofocus, setAutofocus] = useState<'from' | 'to' | null>(null);
+
     const parseInt = (value: string | undefined | number | null): number | null => {
         const isNan = isNaN(Number.parseInt(String(value)));
         return isNan ? null : Number.parseInt(String(value));
@@ -15,11 +20,16 @@ export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
 
     const mapValue = (value: number | null) => {
         debugger
-        return  value === null ?  '' : value;
+        return value === null ? '' : value;
     }
 
     const handleFrom = (value: string) => {
         console.log('handleFrom', value);
+        const intValue = parseInt(value);
+        if(String(intValue) !== value) {
+            setFromKey(fromKey + 1);
+            setAutofocus('from');
+        }
         onChange(parseInt(value), to);
     }
 
@@ -30,7 +40,7 @@ export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
         const valuePom = parseInt(value);
         const toPom = parseInt(to);
 
-        if (valuePom && toPom && valuePom > toPom ) {
+        if (valuePom && toPom && valuePom > toPom) {
             newValue = String(to);
         }
         console.log('handleFromBlur', parseInt(newValue))
@@ -39,6 +49,11 @@ export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
 
     const handleTo = (value: string) => {
         console.log('handleFrom', value);
+        const intValue = parseInt(value);
+        if(String(intValue) !== value) {
+            setToKey(toKey + 1);
+            setAutofocus('to');
+        }
         onChange(from, parseInt(value));
     }
 
@@ -49,7 +64,7 @@ export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
         const valuePom = parseInt(value);
         const fromPom = parseInt(from);
 
-        if (valuePom && fromPom && valuePom < fromPom ) {
+        if (valuePom && fromPom && valuePom < fromPom) {
             newValue = String(from);
         }
 
@@ -77,12 +92,12 @@ export const DemoFilter = ({ from, to, onChange }: DemoFilterProps) => {
 
                     <Box>
                         <FormLabel>From</FormLabel>
-                        <Input placeholder="0" type='number' value={mapValue(from)} onKeyDown={e => checkInput(e)} onChange={(e) => handleFrom(e.target.value)} onBlur={(e) => handleFromBlur(e.target.value)}></Input>
+                        <Input key={fromKey} autoFocus={autofocus === 'from'} placeholder="0" type='number' value={mapValue(from)} onKeyDown={e => checkInput(e)} onChange={(e) => handleFrom(e.target.value)} onBlur={(e) => handleFromBlur(e.target.value)}></Input>
                     </Box>
 
                     <Box>
                         <FormLabel>To</FormLabel>
-                        <Input placeholder="10" type='number' value={mapValue(to)} onKeyDown={e => checkInput(e)} onChange={(e) => handleTo(e.target.value)} onBlur={(e) => handleToBlur(e.target.value)}></Input>
+                        <Input key={toKey} autoFocus={autofocus === 'to'} placeholder="10" type='number' value={mapValue(to)} onKeyDown={e => checkInput(e)} onChange={(e) => handleTo(e.target.value)} onBlur={(e) => handleToBlur(e.target.value)}></Input>
                     </Box>
 
                 </HStack>
