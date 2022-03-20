@@ -1,5 +1,6 @@
 import { ChakraTheme, extendTheme, ThemeComponentProps } from "@chakra-ui/react";
 import { mode } from '@chakra-ui/theme-tools';
+import { Card } from "./components/Card";
 
 export const theme = extendTheme({
     colors: {
@@ -17,6 +18,7 @@ export const theme = extendTheme({
         }
     },
     components: {
+        Card,
         Button: {
             variants: {
                 primary: (props: ThemeComponentProps<ChakraTheme>) => ({
