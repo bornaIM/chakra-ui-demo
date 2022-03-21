@@ -11,7 +11,7 @@ export const App = () => (
   <ChakraProvider theme={theme}>
     <Container maxW="container.xl" p={0}>
       <DemoFilterPage></DemoFilterPage>
-      <DemoCardPage></DemoCardPage>
+      {/* <DemoCardPage></DemoCardPage> */}
     </Container>
   </ChakraProvider>
 )
