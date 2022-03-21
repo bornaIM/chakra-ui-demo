@@ -63,6 +63,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 https://egghead.io/lessons/react-create-custom-variants-in-chakra-ui
 https://github.com/nikolovlazar/egghead-getting-started-with-chakra-ui
 https://www.digitalocean.com/community/tutorials/react-chakra-ui#installation
+https://www.lekoarts.de/react/how-to-build-an-advanced-multipart-component-with-chakra-ui
 
 ### Thing to look at in official docs
 https://chakra-ui.com/docs/components/layout/flex#flex-and-spacer-vs-grid-vs-stack
