@@ -3,32 +3,36 @@ import { background, ComponentStyleConfig } from "@chakra-ui/react";
 
 export const DemoFilter: ComponentStyleConfig = {
 
+    parts: ['main', 'testDiv'],
+
     baseStyle: (props) => ({
-        //   display: 'flex',
-        //   flexDirection: 'column',
-        //   background: 'white',
-        //   alignItems: 'center',
-        //   gap: 6,
-        '#testStack #testDiv': mode('blue', 'green')(props),
-        background: mode('gray.50', 'whiteAlpha.50')(props)
+        main: {
+            background: mode('gray.50', 'whiteAlpha.50')(props)
+        },
+        testDiv: {
+            background: mode('blue', 'green')(props)
+        }
     }),
     // Two variants: rounded and smooth
     variants: {
         rounded: {
-            padding: 8,
-            borderRadius: 'xl',
-            boxShadow: 'xl',
+            main: {
+                padding: 8,
+                borderRadius: 'xl',
+                boxShadow: 'xl',
+            }
         },
         smooth: {
-            padding: 6,
-            borderRadius: 'base',
-            boxShadow: 'md',
+            main: {
+                padding: 6,
+                borderRadius: 'base',
+                boxShadow: 'md',
+            }
         },
 
     },
     // The default variant value
     defaultProps: {
         variant: 'rounded',
-        divColor: 'demoa'
     },
 }

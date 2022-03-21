@@ -1,4 +1,4 @@
-import { Box, Flex, FormLabel, Heading, HStack, Input, useColorModeValue, VStack, NumberInput, useColorMode, chakra, useStyleConfig, CSSObject } from "@chakra-ui/react"
+import { Box, Flex, FormLabel, Heading, HStack, Input, useColorModeValue, VStack, NumberInput, useColorMode, chakra, useStyleConfig, CSSObject, useMultiStyleConfig } from "@chakra-ui/react"
 import { useState } from "react"
 
 interface DemoFilterProps {
@@ -22,7 +22,7 @@ export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
     // hook which tells us which color mode is currently active
     const { colorMode } = useColorMode();
     
-    const styles: CSSObject = useStyleConfig('DemoFilter', {variant});
+    const styles = useMultiStyleConfig('DemoFilter', {variant});
 
     const parseInt = (value: string | undefined | number | null): number | null => {
         const isNan = isNaN(Number.parseInt(String(value)));
@@ -92,13 +92,21 @@ export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
 
     return (
         // <VStack w="full" h="full" align="flex-start" bg={bgColor} px={10} pb={10} pt={5}>
-        <VStack id='testStack' w="full" h="full" align="flex-start" __css={styles}>
+        <VStack id='testStack' w="full" h="full" align="flex-start" __css={styles.main}>
 
             <pre>{JSON.stringify(styles)}</pre>
             <pre>{variant}</pre>
 
             <VStack>
-                <div id='testDiv' style={{width: '100px', height: '100px'}}></div>
+                <chakra.div id='testDiv' style={{width: '100px', height: '100px'}} __css={styles.testDiv}>
+                    chakra div
+                </chakra.div>
+            </VStack>
+
+            <VStack>
+                <div id='testDiv' style={{width: '100px', height: '100px', backgroundColor: styles.testDiv.background as string}}>
+                    normal div
+                </div>
             </VStack>
 
             <VStack align="flex-start">
