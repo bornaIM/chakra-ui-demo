@@ -1,25 +1,28 @@
-import { Box, Flex, FormLabel, Heading, HStack, Input, useColorModeValue, VStack, NumberInput, useColorMode } from "@chakra-ui/react"
+import { Box, Flex, FormLabel, Heading, HStack, Input, useColorModeValue, VStack, NumberInput, useColorMode, chakra, useStyleConfig, CSSObject } from "@chakra-ui/react"
 import { useState } from "react"
 
 interface DemoFilterProps {
     value: {
         from: number | null,
         to: number | null,
-    }
+    },
+    onChange: (from: number | null, to: number | null) => void,
 
-    onChange: (from: number | null, to: number | null) => void
+    variant?: string,
 }
 
-export const DemoFilter = ({ value, onChange }: DemoFilterProps) => {
+export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
 
     const [fromKey, setFromKey] = useState(0);
     const [toKey, setToKey] = useState(0);
     const [autofocus, setAutofocus] = useState<'from' | 'to' | null>(null);
 
-    const bgColor = useColorModeValue('gray.50', 'whiteAlpha.50');
-    const secondaryTextColor = useColorModeValue('gray.600', 'gray.400');
+    const secondaryTextColor = useColorModeValue('gray.600', 'pink');
 
-    const { colorMode, toggleColorMode } = useColorMode()
+    // hook which tells us which color mode is currently active
+    const { colorMode } = useColorMode();
+    
+    const styles: CSSObject = useStyleConfig('DemoFilter', {variant});
 
     const parseInt = (value: string | undefined | number | null): number | null => {
         const isNan = isNaN(Number.parseInt(String(value)));
@@ -27,7 +30,6 @@ export const DemoFilter = ({ value, onChange }: DemoFilterProps) => {
     }
 
     const mapValue = (value: number | null) => {
-        debugger
         return value === null ? '' : value;
     }
 
@@ -42,7 +44,6 @@ export const DemoFilter = ({ value, onChange }: DemoFilterProps) => {
     }
 
     const handleFromBlur = (blurValue: string) => {
-        debugger;
         let newValue: string = blurValue;
 
         const valuePom = parseInt(blurValue);
@@ -67,7 +68,6 @@ export const DemoFilter = ({ value, onChange }: DemoFilterProps) => {
     }
 
     const handleToBlur = (blurValue: string) => {
-        debugger;
         let newValue: string = blurValue;
 
         const valuePom = parseInt(blurValue);
@@ -91,10 +91,14 @@ export const DemoFilter = ({ value, onChange }: DemoFilterProps) => {
     }
 
     return (
-        <VStack w="full" h="full" align="flex-start" bg={bgColor} px={10} pb={10} pt={5}>
+        // <VStack w="full" h="full" align="flex-start" bg={bgColor} px={10} pb={10} pt={5}>
+        <VStack id='testStack' w="full" h="full" align="flex-start" __css={styles}>
+
+            <pre>{JSON.stringify(styles)}</pre>
+            <pre>{variant}</pre>
 
             <VStack>
-                <div style={{width: '100px', height: '100px', background: colorMode === "light" ? 'green' : "blue"}}></div>
+                <div id='testDiv' style={{width: '100px', height: '100px'}}></div>
             </VStack>
 
             <VStack align="flex-start">

@@ -7,7 +7,14 @@ export const DemoFilterPage = (props: any) => {
     const [from, setFrom] = useState<number | null>(null);
     const [to, setTo] = useState<number | null>(null);
 
+    const [variant, setVariant] = useState<'smooth' | 'rounded'>('smooth');
+
     const { toggleColorMode } = useColorMode();
+
+    const toggleVariant = () => {
+        const newVariant = variant === 'smooth' ? 'rounded' : 'smooth';
+        setVariant(newVariant);
+    }
 
     const onFilterChange = (from: number | null, to: number | null) => {
         setFrom(from);
@@ -17,7 +24,8 @@ export const DemoFilterPage = (props: any) => {
     return (
         <>
             <Button variant="primary" onClick={toggleColorMode}>Toogle Color</Button>
-            <DemoFilter value={{to, from}} onChange={onFilterChange}></DemoFilter>
+            <Button variant="primary" onClick={toggleVariant}>Toogle DemoFilter variant</Button>
+            <DemoFilter value={{to, from}} onChange={onFilterChange} variant={variant}></DemoFilter>
             <pre>{`${from}_${to}`}</pre>
         </>
     )
