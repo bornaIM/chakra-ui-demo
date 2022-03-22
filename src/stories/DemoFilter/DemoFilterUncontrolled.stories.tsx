@@ -1,9 +1,8 @@
 import { DemoFilter, DemoFilterProps } from '../../components/demo-filter/DemoFilter';
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Demo/DemoFilter',
+  title: 'Demo/DemoFilter uncontrolled',
   component: DemoFilter,
   argTypes: {
     variant: {
