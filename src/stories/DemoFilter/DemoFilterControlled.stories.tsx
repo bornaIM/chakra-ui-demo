@@ -17,7 +17,6 @@ export default {
   },
 } as ComponentMeta<typeof DemoFilter>;
 
-
 // https://javascript.plainenglish.io/a-guide-to-documenting-controlled-components-with-storybook-10b889c03f87
 const Template: ComponentStory<typeof DemoFilter> = (args: DemoFilterProps) => {
   const [from, setFrom] = useState<number | null>(args.value.from);
@@ -26,7 +25,9 @@ const Template: ComponentStory<typeof DemoFilter> = (args: DemoFilterProps) => {
   const onFilterChange = (from: number | null, to: number | null) => {
     setFrom(from);
     setTo(to);
-    args.onChange(from, to);
+    if(args.onChange) {
+      args.onChange(from, to);
+    }
   }
 
   useEffect(() => {
