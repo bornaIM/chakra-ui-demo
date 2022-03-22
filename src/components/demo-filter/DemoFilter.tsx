@@ -94,7 +94,7 @@ export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
         // <VStack w="full" h="full" align="flex-start" bg={bgColor} px={10} pb={10} pt={5}>
         <VStack id='testStack' w="full" h="full" align="flex-start" __css={styles.main}>
 
-            <pre>{JSON.stringify(styles)}</pre>
+            {/* <pre>{JSON.stringify(styles)}</pre>
             <pre>{variant}</pre>
 
             <VStack>
@@ -107,7 +107,7 @@ export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
                 <div id='testDiv' style={{width: '100px', height: '100px', backgroundColor: styles.testDiv.background as string}}>
                     normal div
                 </div>
-            </VStack>
+            </VStack> */}
 
             <VStack align="flex-start">
                 <Heading>Demo filter component</Heading>
