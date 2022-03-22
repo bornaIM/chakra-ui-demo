@@ -1,7 +1,7 @@
 import { Box, Flex, FormLabel, Heading, HStack, Input, useColorModeValue, VStack, NumberInput, useColorMode, chakra, useStyleConfig, CSSObject, useMultiStyleConfig } from "@chakra-ui/react"
 import { useState } from "react"
 
-interface DemoFilterProps {
+export interface DemoFilterProps {
     value: {
         from: number | null,
         to: number | null,
