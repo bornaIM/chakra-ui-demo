@@ -25,6 +25,9 @@ const Template: ComponentStory<typeof DemoFilter> = (args: DemoFilterProps) => {
   const onFilterChange = (from: number | null, to: number | null) => {
     setFrom(from);
     setTo(to);
+
+    // see why this is necessary
+    // https://github.com/storybookjs/storybook/issues/12540
     if(args.onChange) {
       args.onChange(from, to);
     }
