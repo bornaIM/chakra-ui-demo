@@ -4,8 +4,8 @@ import { DemoFilter } from "./DemoFilter"
 
 export const DemoFilterPage = (props: any) => {
 
-    const [from, setFrom] = useState<number | null>(null);
-    const [to, setTo] = useState<number | null>(null);
+    const [from, setFrom] = useState<number | null>(100);
+    const [to, setTo] = useState<number | null>(20);
 
     const [variant, setVariant] = useState<'smooth' | 'rounded'>('smooth');
 

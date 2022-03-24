@@ -1,5 +1,5 @@
 import { Box, Flex, FormLabel, Heading, HStack, Input, useColorModeValue, VStack, NumberInput, useColorMode, chakra, useStyleConfig, CSSObject, useMultiStyleConfig } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export interface DemoFilterProps {
     value: {
@@ -9,9 +9,10 @@ export interface DemoFilterProps {
     onChange: (from: number | null, to: number | null) => void,
 
     variant?: string,
+    showTestProps?: boolean
 }
 
-export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
+export const DemoFilter = ({ value, onChange, variant, showTestProps = false }: DemoFilterProps) => {
 
     const [fromKey, setFromKey] = useState(0);
     const [toKey, setToKey] = useState(0);
@@ -21,8 +22,8 @@ export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
 
     // hook which tells us which color mode is currently active
     const { colorMode } = useColorMode();
-    
-    const styles = useMultiStyleConfig('DemoFilter', {variant});
+
+    const styles = useMultiStyleConfig('DemoFilter', { variant });
 
     const parseInt = (value: string | undefined | number | null): number | null => {
         const isNan = isNaN(Number.parseInt(String(value)));
@@ -40,6 +41,7 @@ export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
             setFromKey(fromKey + 1);
             setAutofocus('from');
         }
+        
         onChange(parseInt(newValue), value.to);
     }
 
@@ -52,7 +54,7 @@ export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
         if (valuePom && toPom && valuePom > toPom) {
             newValue = String(value.to);
         }
-        console.log('handleFromBlur', parseInt(newValue))
+        // console.log('handleFromBlur', parseInt(newValue))
         setAutofocus(null);
         handleFrom(newValue);
     }
@@ -77,10 +79,16 @@ export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
             newValue = String(value.from);
         }
 
-        console.log('handleTo', parseInt(newValue));
+        // console.log('handleTo', parseInt(newValue));
         setAutofocus(null);
         handleTo(newValue);
     }
+
+    useEffect(() => {
+        console.log('initial values', value.from, value.to)
+        handleFromBlur(String(value.from));
+        // handleToBlur(String(value.to));
+    }, [])
 
     const checkInput = (newValue: any) => {
         console.log(newValue.keyCode);
@@ -95,19 +103,26 @@ export const DemoFilter = ({ value, onChange, variant }: DemoFilterProps) => {
         <VStack id='testStack' w="full" h="full" align="flex-start" __css={styles.main}>
 
             {/* <pre>{JSON.stringify(styles)}</pre>
-            <pre>{variant}</pre>
+            <pre>{variant}</pre> */}
 
-            <VStack>
-                <chakra.div id='testDiv' style={{width: '100px', height: '100px'}} __css={styles.testDiv}>
-                    chakra div
-                </chakra.div>
-            </VStack>
+            {showTestProps &&
+                <div>
+                    <p>
+                        pero
+                    </p>
+                    <VStack>
+                        <chakra.div id='testDiv' style={{ width: '100px', height: '100px' }} __css={styles.testDiv}>
+                            chakra div
+                        </chakra.div>
+                    </VStack>
 
-            <VStack>
-                <div id='testDiv' style={{width: '100px', height: '100px', backgroundColor: styles.testDiv.background as string}}>
-                    normal div
+                    <VStack>
+                        <div id='testDiv' style={{ width: '100px', height: '100px', backgroundColor: styles.testDiv.background as string }}>
+                            normal div
+                        </div>
+                    </VStack>
                 </div>
-            </VStack> */}
+            }
 
             <VStack align="flex-start">
                 <Heading>Demo filter component</Heading>
