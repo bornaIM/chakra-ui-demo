@@ -67,3 +67,26 @@ https://www.lekoarts.de/react/how-to-build-an-advanced-multipart-component-with-
 
 ### Thing to look at in official docs
 https://chakra-ui.com/docs/components/layout/flex#flex-and-spacer-vs-grid-vs-stack
+
+
+
+## Rollup resources
+https://github.com/rollup/plugins
+
+### @rollup/plugin-node-resolve
+Used for bundling third party dependencies
+
+### @rollup/plugin-commonjs
+Converts commonJS modules to ES6 
+
+### @rollup/plugin-typescript
+Add TypeScript support
+### rollup-plugin-dts
+Bundles up all .d.ts files
+https://snyk.io/advisor/npm-package/rollup-plugin-dts 
+
+### rollup-plugin-terser
+Used for code mimification 
+
+### rollup-plugin-peer-deps-external
+Automatically externalize peerDependencies in a rollup bundle, removes need for external part in Rollup config
