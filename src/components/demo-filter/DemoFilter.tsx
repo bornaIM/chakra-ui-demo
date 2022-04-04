@@ -133,12 +133,12 @@ export const DemoFilter = ({ value, onChange, variant, showTestProps = false }: 
 
                     <Box>
                         <FormLabel color={secondaryTextColor}>From</FormLabel>
-                        <Input key={`from_${fromKey}`} autoFocus={autofocus === 'from'} placeholder="0" type='number' value={mapValue(value.from)} onKeyDown={e => checkInput(e)} onChange={(e) => handleFrom(e.target.value)} onBlur={(e) => handleFromBlur(e.target.value)}></Input>
+                        <Input id='from-input' key={`from_${fromKey}`} autoFocus={autofocus === 'from'} placeholder="0" type='number' value={mapValue(value.from)} onKeyDown={e => checkInput(e)} onChange={(e) => handleFrom(e.target.value)} onBlur={(e) => handleFromBlur(e.target.value)}></Input>
                     </Box>
 
                     <Box>
                         <FormLabel color={secondaryTextColor}>To</FormLabel>
-                        <Input key={`to_${toKey}`} autoFocus={autofocus === 'to'} placeholder="10" type='number' value={mapValue(value.to)} onKeyDown={e => checkInput(e)} onChange={(e) => handleTo(e.target.value)} onBlur={(e) => handleToBlur(e.target.value)}></Input>
+                        <Input id='to-input' key={`to_${toKey}`} autoFocus={autofocus === 'to'} placeholder="10" type='number' value={mapValue(value.to)} onKeyDown={e => checkInput(e)} onChange={(e) => handleTo(e.target.value)} onBlur={(e) => handleToBlur(e.target.value)}></Input>
                     </Box>
 
                 </HStack>
